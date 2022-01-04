@@ -1,4 +1,4 @@
-﻿namespace mist_sema.Model
+﻿namespace mist_sema.DataClasses
 {
     public class GraphicCard : ComputerComponent
     {
