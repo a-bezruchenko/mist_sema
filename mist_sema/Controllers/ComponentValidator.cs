@@ -7,59 +7,58 @@ namespace mist_sema.Controllers
     {
         public ValidationResult Validate(ComputerConfiguration computerConfiguration)
         {
-            StringBuilder errorBuilder = new StringBuilder();
+            List<ValidationResult> errors = new List<ValidationResult>();
 
-            int systemBoardsCount = computerConfiguration.components.Count((ComputerComponent c) => c is SystemBoard);
-            if (systemBoardsCount != 1)
-                errorBuilder.Append("Должна быть ровно одна материнская плата");
+            errors.Add(ValidateComponentCount<Processor>(computerConfiguration, 1, 1, 
+                "Должен быть ровно один процессор"));
 
-            int processorsCount = computerConfiguration.components.Count((ComputerComponent c) => c is Processor);
-            if (processorsCount != 1)
-                errorBuilder.Append("Должен быть ровно один процессор");
+            errors.Add(ValidateComponentCount<SystemBoard>(computerConfiguration, 1, 1, 
+                "Должна быть ровно одна материнская плата"));
 
-            int powerSupplyCount = computerConfiguration.components.Count((ComputerComponent c) => c is PowerSupply);
-            if (powerSupplyCount != 1)
-                errorBuilder.Append("Должен быть ровно один блок питания");
+            errors.Add(ValidateComponentCount<PowerSupply>(computerConfiguration, 1, 1, 
+                "Должен быть ровно один блок питания"));
 
-            // далее предполагается, что материнка, процессор и БП существуют
-            // если это не так, прекращаем проверку здесь
-            if (errorBuilder.Length > 0)
-                return ValidationResult.Failure(errorBuilder.ToString());
+            errors.Add(ValidateComponentCount<GraphicCard>(computerConfiguration, 1, 1, 
+                "Должна быть ровно одна видеокарта"));
 
-            int graphicCardCount = computerConfiguration.components.Count((ComputerComponent c) => c is GraphicCard);
-            if (graphicCardCount != 1)
-                errorBuilder.Append("Должна быть ровно одна видеокарта");
+            SystemBoard? systemBoard = computerConfiguration.components.FirstOrDefault(c => c is SystemBoard) as SystemBoard;
 
-            SystemBoard systemBoard = (SystemBoard)computerConfiguration.components.First(c => c is SystemBoard);
-            
-            int storageDeviceCount = computerConfiguration.components.Count((ComputerComponent c) => c is StorageDevice);
-            if (storageDeviceCount == 0)
-                errorBuilder.Append("Должен быть хотя бы один накопитель");
-            else if (storageDeviceCount > systemBoard.SataPortsCount)
-                errorBuilder.Append("Накопителей должно быть не больше, чем число SATA портов в материнской плате");
+            errors.Add(ValidateComponentCount<StorageDevice>(computerConfiguration, 1, systemBoard?.SataPortsCount, 
+                "Должен быть хотя бы один накопитель", "Накопителей должно быть не больше, чем число SATA портов в материнской плате"));
 
-            int ramCount = computerConfiguration.components.Count((ComputerComponent c) => c is Ram);
-            if (ramCount == 0)
-                errorBuilder.Append("Должна быть хотя бы одна планка памяти");
-            else if (ramCount > systemBoard.MemorySlotsCount)
-                errorBuilder.Append("Планок памяти должно быть не больше, чем число разъёмов под память в материнской плате");
+            errors.Add(ValidateComponentCount<Ram>(computerConfiguration, 1, systemBoard?.MemorySlotsCount,
+                "Должна быть хотя бы одна планка памяти", "Планок памяти должно быть не больше, чем число разъёмов под память в материнской плате"));
 
-            // далее предполагается, что память существует
-            // если это не так, прекращаем проверку здесь
-            if (errorBuilder.Length > 0)
-                return ValidationResult.Failure(errorBuilder.ToString());
+            errors.Add(CheckMemoryCompatability(computerConfiguration));
 
-            int ramGenerationId = ((Ram)computerConfiguration.components.First((ComputerComponent c) => c is Ram)).GenerationId;
-            bool memoryGenerationsEqual = computerConfiguration.components
-                .Where((ComputerComponent c) => c is Ram)
-                .All((ComputerComponent c) => ((Ram)c).GenerationId == ramGenerationId);
+            errors.Add(CheckPower(computerConfiguration));
 
-            if (!memoryGenerationsEqual)
-                errorBuilder.Append("Поколения планок памяти должны быть одинаковы");
-            else if (systemBoard.MemoryGenerationId != ramGenerationId)
-                errorBuilder.Append("Поколения планок памяти и материнской платы должны быть одинаковы");
+            errors.Add(CheckProcessorCompatability(computerConfiguration));
 
-            PowerSupply powerSupply = (PowerSupply)computerConfiguration.components.First(c => c is PowerSupply);
+            return ValidationResult.Merge(errors);
+        }
+
+        private ValidationResult ValidateComponentCount<T>(ComputerConfiguration computerConfiguration, int minCount, int? maxCount, string errorMessageTooFew, string errorMessageTooMany = "") where T : ComputerComponent
+        {
+            if (errorMessageTooMany == "")
+                errorMessageTooMany = errorMessageTooFew;
+
+            int componentCount = computerConfiguration.components.Count((ComputerComponent c) => c is T);
+            if (componentCount < minCount) 
+                return ValidationResult.Failure(errorMessageTooFew);
+            else if ((maxCount != null && componentCount > maxCount))
+                return ValidationResult.Failure(errorMessageTooMany);
+            else
+                return ValidationResult.Success();
+        }
+
+        private ValidationResult CheckPower(ComputerConfiguration computerConfiguration)
+        {
+            PowerSupply? powerSupply = computerConfiguration.components.First(c => c is PowerSupply) as PowerSupply;
+
+            if (powerSupply == null)
+                return ValidationResult.Failure(""); // уже протестировано другим тестом
+
             double providedPower = powerSupply.Consumed_power * powerSupply.Efficiency;
             double consumedPower = computerConfiguration.components
                 .Where((ComputerComponent c) => c is not PowerSupply)
@@ -67,14 +66,37 @@ namespace mist_sema.Controllers
                 .Sum();
 
             if (consumedPower > providedPower)
-                errorBuilder.Append("Недостаточно мощный блок питания");
+                return ValidationResult.Failure("Недостаточно мощный блок питания");
+            else
+                return ValidationResult.Success();
+        }
 
-            Processor processor = (Processor)computerConfiguration.components.First(c => c is Processor);
-            if (processor.SocketTypeId != systemBoard.SocketTypeId)
-                errorBuilder.Append("Разные сокеты у процессора и материнской платы");
+        private ValidationResult CheckMemoryCompatability(ComputerConfiguration computerConfiguration)
+        {
+            SystemBoard? systemBoard = computerConfiguration.components.FirstOrDefault(c => c is SystemBoard) as SystemBoard;
+            int? ramGenerationId = (computerConfiguration.components.First((ComputerComponent c) => c is Ram) as Ram)?.GenerationId;
+            bool memoryGenerationsEqual = computerConfiguration.components
+                .Where((ComputerComponent c) => c is Ram)
+                .All((ComputerComponent c) => ((Ram)c).GenerationId == ramGenerationId);
 
-            if (errorBuilder.Length > 0)
-                return ValidationResult.Failure(errorBuilder.ToString());
+            if (!memoryGenerationsEqual)
+                return ValidationResult.Failure("Поколения планок памяти должны быть одинаковы");
+            else if (ramGenerationId == null || systemBoard == null)
+                return ValidationResult.Failure(""); // уже протестировано другими тестами
+            else if (systemBoard?.MemoryGenerationId != ramGenerationId)
+                return ValidationResult.Failure("Поколения планок памяти и материнской платы должны быть одинаковы");
+            else
+                return ValidationResult.Success();
+        }
+
+        private ValidationResult CheckProcessorCompatability(ComputerConfiguration computerConfiguration)
+        {
+            Processor? processor = computerConfiguration.components.First(c => c is Processor) as Processor;
+            SystemBoard? systemBoard = computerConfiguration.components.FirstOrDefault(c => c is SystemBoard) as SystemBoard;
+            if (processor == null || systemBoard == null)
+                return ValidationResult.Failure(""); // уже протестировано другими тестами
+            else if (processor.SocketTypeId != systemBoard.SocketTypeId)
+                return ValidationResult.Failure("Разные сокеты у процессора и материнской платы");
             else
                 return ValidationResult.Success();
         }
