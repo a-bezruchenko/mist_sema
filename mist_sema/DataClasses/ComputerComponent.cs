@@ -6,6 +6,7 @@
         public string ImageLink { get; set; }
         public string Manufacturer { get; set; }
         public double Consumed_power { get; set; }
+        public Decimal Price { get; set; }
 
         protected ComputerComponent()
         {
