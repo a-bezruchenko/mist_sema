@@ -9,6 +9,7 @@ namespace mist_sema.Controllers
     public class PowerSupplyController : ComponentsControllerBase<PowerSupply>
     {
         public PowerSupplyController(IComponentRepository componentRepository) : base(componentRepository)
-        {}
+        {
+        }
     }
 }

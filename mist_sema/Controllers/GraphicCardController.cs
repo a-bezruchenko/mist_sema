@@ -9,6 +9,7 @@ namespace mist_sema.Controllers
     public class GraphicCardController : ComponentsControllerBase<GraphicCard>
     {
         public GraphicCardController(IComponentRepository componentRepository) : base(componentRepository)
-        {}
+        {
+        }
     }
 }
