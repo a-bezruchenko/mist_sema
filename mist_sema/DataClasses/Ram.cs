@@ -3,6 +3,11 @@
     public class Ram : ComputerComponent
     {
         public double Volume { get; set; }
-        public int GenerationId { get; set; }
+        public string GenerationName { get; set; }
+
+        public Ram()
+        {
+            GenerationName = "";
+        }
     }
 }

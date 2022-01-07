@@ -2,7 +2,12 @@
 {
     public class StorageDevice : ComputerComponent
     {
-        public int TypeId { get; set; }
+        public string StorageType { get; set; }
         public double Volume { get; set; }
+
+        public StorageDevice()
+        {
+            StorageType = "";
+        }
     }
 }

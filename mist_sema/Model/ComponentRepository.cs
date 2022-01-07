@@ -80,7 +80,7 @@ namespace mist_sema.Model
                 Manufacturer = "Intel",
                 Name = "Core i7 12700K",
                 Perfomance = 100500,
-                SocketTypeId = 1,
+                ProcessorSocketType = "LGA 1700",
                 Price = 37690
             },
             new Processor()
@@ -91,7 +91,7 @@ namespace mist_sema.Model
                 Manufacturer = "Intel",
                 Name = "Core i9 12900K",
                 Perfomance = 100501,
-                SocketTypeId = 1,
+                ProcessorSocketType = "LGA 1700",
                 Price = 54490
             },
             new Processor()
@@ -102,7 +102,7 @@ namespace mist_sema.Model
                 Manufacturer = "AMD",
                 Name = "Ryzen Threadripper 3990X",
                 Perfomance = 100000,
-                SocketTypeId = 2,
+                ProcessorSocketType = "sTRX4",
                 Price = 412520
             },
             new Ram()
@@ -112,7 +112,7 @@ namespace mist_sema.Model
                 ImageLink = "nope.png",
                 Manufacturer = "Corsair",
                 Name = "Corsair DDR4 16GB",
-                GenerationId = 4,
+                GenerationName = "DDR4",
                 Volume = 16,
                 Price = 4500
             },
@@ -123,7 +123,7 @@ namespace mist_sema.Model
                 ImageLink = "nope.png",
                 Manufacturer = "Corsair",
                 Name = "Corsair DDR4 8GB",
-                GenerationId = 4,
+                GenerationName = "DDR4",
                 Volume = 8,
                 Price = 3000
             },
@@ -134,7 +134,7 @@ namespace mist_sema.Model
                 ImageLink = "nope.png",
                 Manufacturer = "noname",
                 Name = "noname DDR3 4GB",
-                GenerationId = 3,
+                GenerationName = "DDR3",
                 Volume = 4,
                 Price = 500
             },
@@ -145,7 +145,7 @@ namespace mist_sema.Model
                 ImageLink = "nope.png",
                 Manufacturer = "WD",
                 Name = "WD Green HDD 500GB",
-                TypeId = 1,
+                StorageType = "HDD",
                 Volume = 500,
                 Price = 3000
             },
@@ -156,7 +156,7 @@ namespace mist_sema.Model
                 ImageLink = "nope.png",
                 Manufacturer = "WD",
                 Name = "WD Green HDD 1TB",
-                TypeId = 1,
+                StorageType = "HDD",
                 Volume = 1000,
                 Price = 4000
             },
@@ -167,7 +167,7 @@ namespace mist_sema.Model
                 ImageLink = "nope.png",
                 Manufacturer = "WD",
                 Name = "WD Green SSD 250GB",
-                TypeId = 2,
+                StorageType = "SSD",
                 Volume = 250,
                 Price = 4000
             },
@@ -179,9 +179,9 @@ namespace mist_sema.Model
                 Manufacturer = "no name",
                 Name = "basic systemboard by noname",
                 MemorySlotsCount = 2,
-                MemoryGenerationId = 4,
+                MemoryGenerationName = "DDR4",
                 SataPortsCount = 2,
-                SocketTypeId = 1,
+                ProcessorSocketType = "LGA 1700",
                 Price = 2000
             },
             new SystemBoard()
@@ -192,9 +192,9 @@ namespace mist_sema.Model
                 Manufacturer = "no name",
                 Name = "basic systemboard by noname",
                 MemorySlotsCount = 2,
-                MemoryGenerationId = 4,
+                MemoryGenerationName = "DDR4",
                 SataPortsCount = 2,
-                SocketTypeId = 1,
+                ProcessorSocketType = "LGA 1700",
                 Price = 2000
             },
         };
