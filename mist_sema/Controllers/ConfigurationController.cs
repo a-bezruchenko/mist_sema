@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using mist_sema.DataClasses;
 using mist_sema.Model;
+using mist_sema.Validators;
 
 namespace mist_sema.Controllers
 {
@@ -10,13 +11,13 @@ namespace mist_sema.Controllers
     {
         readonly protected IConfigurationRepository configurationRepository;
         readonly protected IComponentRepository componentRepository;
-        readonly protected ComponentValidator componentValidator;
+        readonly protected IEnumerable<IValidator> componentValidators;
 
-        public ConfigurationController(IConfigurationRepository configurationRepository, IComponentRepository componentRepository)
+        public ConfigurationController(IConfigurationRepository configurationRepository, IComponentRepository componentRepository, IEnumerable<IValidator> validators)
         {
             this.configurationRepository = configurationRepository;
             this.componentRepository = componentRepository;
-            componentValidator = new ComponentValidator();
+            componentValidators = validators;
         }
 
         [HttpPost]
@@ -28,7 +29,7 @@ namespace mist_sema.Controllers
                 return "Не удалось найти все указанные компоненты";
             }
 
-            var result = componentValidator.Validate(computerConfiguration);
+            var result = ValidationResult.Merge(componentValidators.Select((v) => v.Validate(computerConfiguration)));
             return result.IsValid ? "" : result.Message;
         }
 
