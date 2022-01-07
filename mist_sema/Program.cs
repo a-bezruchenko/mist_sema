@@ -1,4 +1,5 @@
 using mist_sema.Model;
+using mist_sema.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services
     .AddScoped<IComponentRepository, ComponentRepository>()
-    .AddScoped<IConfigurationRepository, ConfigurationRepository>();
+    .AddScoped<IConfigurationRepository, ConfigurationRepository>()
+    .AddScoped<IValidator, ComponentsCountValidator>()
+    .AddScoped<IValidator, TotalPowerValidator>()
+    .AddScoped<IValidator, MemoryCompatabilityValidator>()
+    .AddScoped<IValidator, ProcessorCompatabilityValidator>();
 
 var app = builder.Build();
 

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace mist_sema.DataClasses
+namespace mist_sema.Validators
 {
     public class ValidationResult
     {
