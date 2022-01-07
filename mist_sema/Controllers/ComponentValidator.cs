@@ -54,7 +54,7 @@ namespace mist_sema.Controllers
 
         private ValidationResult CheckPower(ComputerConfiguration computerConfiguration)
         {
-            PowerSupply? powerSupply = computerConfiguration.components.First(c => c is PowerSupply) as PowerSupply;
+            PowerSupply? powerSupply = computerConfiguration.components.FirstOrDefault(c => c is PowerSupply) as PowerSupply;
 
             if (powerSupply == null)
                 return ValidationResult.Failure(""); // уже протестировано другим тестом
@@ -74,7 +74,7 @@ namespace mist_sema.Controllers
         private ValidationResult CheckMemoryCompatability(ComputerConfiguration computerConfiguration)
         {
             SystemBoard? systemBoard = computerConfiguration.components.FirstOrDefault(c => c is SystemBoard) as SystemBoard;
-            int? ramGenerationId = (computerConfiguration.components.First((ComputerComponent c) => c is Ram) as Ram)?.GenerationId;
+            int? ramGenerationId = (computerConfiguration.components.FirstOrDefault((ComputerComponent c) => c is Ram) as Ram)?.GenerationId;
             bool memoryGenerationsEqual = computerConfiguration.components
                 .Where((ComputerComponent c) => c is Ram)
                 .All((ComputerComponent c) => ((Ram)c).GenerationId == ramGenerationId);
@@ -91,7 +91,7 @@ namespace mist_sema.Controllers
 
         private ValidationResult CheckProcessorCompatability(ComputerConfiguration computerConfiguration)
         {
-            Processor? processor = computerConfiguration.components.First(c => c is Processor) as Processor;
+            Processor? processor = computerConfiguration.components.FirstOrDefault(c => c is Processor) as Processor;
             SystemBoard? systemBoard = computerConfiguration.components.FirstOrDefault(c => c is SystemBoard) as SystemBoard;
             if (processor == null || systemBoard == null)
                 return ValidationResult.Failure(""); // уже протестировано другими тестами

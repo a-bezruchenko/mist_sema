@@ -7,7 +7,7 @@ namespace mist_sema.Controllers
 
     abstract public class ComponentsControllerBase<T> : ControllerBase where T : ComputerComponent, new()
     {
-        protected IComponentRepository componentRepository;
+        readonly protected IComponentRepository componentRepository;
 
         public ComponentsControllerBase(IComponentRepository componentRepository)
         {

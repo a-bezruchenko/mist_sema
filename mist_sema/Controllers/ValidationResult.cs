@@ -27,7 +27,12 @@ namespace mist_sema.DataClasses
         {
             StringBuilder messageBuilder = new StringBuilder();
             foreach (ValidationResult validationResult in validationResults)
+            {
                 messageBuilder.Append(validationResult.Message);
+                if (validationResult.Message != "")
+                    messageBuilder.Append("\n");
+            }
+                
 
             bool isValid = validationResults.All((ValidationResult vr) => vr.IsValid);
 

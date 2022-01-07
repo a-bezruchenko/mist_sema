@@ -11,7 +11,8 @@ const context =  [
     "/storage_devices",
     "/rams",
     "/graphic_cards",
-    "/power_supplies"
+    "/power_supplies",
+    "/validate_configuration",
 ];
 
 module.exports = function(app) {
