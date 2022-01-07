@@ -8,7 +8,7 @@ namespace mist_sema.Controllers
     {
         readonly protected IComponentRepository componentRepository;
 
-        public ComponentsControllerBase(IComponentRepository componentRepository)
+        protected ComponentsControllerBase(IComponentRepository componentRepository)
         {
             this.componentRepository = componentRepository;
         }

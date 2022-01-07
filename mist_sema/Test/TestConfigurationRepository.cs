@@ -2,13 +2,13 @@
 
 namespace mist_sema.Model
 {
-    public class ConfigurationRepository : IConfigurationRepository
+    public class TestConfigurationRepository : IConfigurationRepository
     {
         static List<ComputerConfiguration> data = new List<ComputerConfiguration>();
 
         readonly protected IComponentRepository componentRepository;
 
-        public ConfigurationRepository(IComponentRepository componentRepository)
+        public TestConfigurationRepository(IComponentRepository componentRepository)
         {
             this.componentRepository = componentRepository;
         }

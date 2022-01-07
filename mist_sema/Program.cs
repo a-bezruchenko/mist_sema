@@ -5,11 +5,12 @@ using mist_sema.Validators;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+string connection = "Filename=db.sqlite";
 
 builder.Services.AddControllersWithViews();
 builder.Services
-    .AddScoped<IComponentRepository, ComponentRepository>()
-    .AddScoped<IConfigurationRepository, ConfigurationRepository>()
+    .AddScoped<IComponentRepository, TestComponentRepository>()
+    .AddScoped<IConfigurationRepository, TestConfigurationRepository>()
     .AddScoped<IValidator, ComponentsCountValidator>()
     .AddScoped<IValidator, TotalPowerValidator>()
     .AddScoped<IValidator, MemoryCompatabilityValidator>()

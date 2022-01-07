@@ -26,10 +26,10 @@ namespace mist_sema.Validators
         public static ValidationResult Merge(IEnumerable<ValidationResult> validationResults)
         {
             StringBuilder messageBuilder = new StringBuilder();
-            foreach (ValidationResult validationResult in validationResults)
+            foreach (string validationMessage in validationResults.Select(vr => vr.Message))
             {
-                messageBuilder.Append(validationResult.Message);
-                if (validationResult.Message != "")
+                messageBuilder.Append(validationMessage);
+                if (validationMessage != "")
                     messageBuilder.Append("\n");
             }
                 
