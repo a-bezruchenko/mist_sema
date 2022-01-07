@@ -4,11 +4,16 @@ namespace mist_sema.Model
 {
     public class ComponentRepository : IComponentRepository
     {
+        readonly protected ComponentContext _context;
 
+        public ComponentRepository(ComponentContext context)
+        {
+            _context = context;
+        }
 
         public void Add<T>(T newComponent) where T : ComputerComponent
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Add(newComponent);
         }
 
         public void Delete(long id)
@@ -18,22 +23,12 @@ namespace mist_sema.Model
 
         public T? Get<T>(long id) where T : ComputerComponent
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().FirstOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<T> GetAll<T>() where T : ComputerComponent
         {
-            throw new NotImplementedException();
-        }
-
-        public GraphicCard GetGraphicCardAll()
-        {
-
-        }
-
-        public GraphicCard GetGraphicCard(long id)
-        {
-
+            return _context.Set<T>();
         }
     }
 }

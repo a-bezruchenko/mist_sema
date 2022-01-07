@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using mist_sema.Controllers;
 using mist_sema.Model;
 using mist_sema.Validators;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,13 +11,14 @@ string connection = "Filename=db.sqlite";
 
 builder.Services.AddControllersWithViews();
 builder.Services
-    .AddScoped<IComponentRepository, TestComponentRepository>()
+    .AddScoped<IComponentRepository, ComponentRepository>()
     .AddScoped<IConfigurationRepository, TestConfigurationRepository>()
     .AddScoped<IValidator, ComponentsCountValidator>()
     .AddScoped<IValidator, TotalPowerValidator>()
     .AddScoped<IValidator, MemoryCompatabilityValidator>()
     .AddScoped<IValidator, ProcessorCompatabilityValidator>()
-    .AddScoped<IControllerUtils, ControllerUtils>();
+    .AddScoped<IControllerUtils, ControllerUtils>()
+    .AddDbContext<ComponentContext>(options => { options.UseSqlite($"Data Source=data.db"); });
 
 var app = builder.Build();
 
