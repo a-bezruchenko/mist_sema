@@ -1,3 +1,4 @@
+using mist_sema.Controllers;
 using mist_sema.Model;
 using mist_sema.Validators;
 
@@ -12,7 +13,8 @@ builder.Services
     .AddScoped<IValidator, ComponentsCountValidator>()
     .AddScoped<IValidator, TotalPowerValidator>()
     .AddScoped<IValidator, MemoryCompatabilityValidator>()
-    .AddScoped<IValidator, ProcessorCompatabilityValidator>();
+    .AddScoped<IValidator, ProcessorCompatabilityValidator>()
+    .AddScoped<IControllerUtils, ControllerUtils>();
 
 var app = builder.Build();
 

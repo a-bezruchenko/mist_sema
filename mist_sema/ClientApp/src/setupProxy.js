@@ -13,6 +13,7 @@ const context = [
     "/graphic_cards",
     "/power_supplies",
     "/validate_configuration",
+    "/configuration_summary",
 ];
 
 module.exports = function (app) {
