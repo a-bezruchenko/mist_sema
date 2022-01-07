@@ -76,34 +76,34 @@ namespace mist_sema.Model
             {
                 Id = 7,
                 Consumed_power = 100,
-                ImageLink = "nope.png",
+                ImageLink = "https://items.s1.citilink.ru/1593041_v01_b.jpg",
                 Manufacturer = "Intel",
-                Name = "Triple Core T800",
+                Name = "Core i7 12700K",
                 Perfomance = 100500,
                 SocketTypeId = 1,
-                Price = 50000
+                Price = 37690
             },
             new Processor()
             {
                 Id = 8,
                 Consumed_power = 150,
-                ImageLink = "nope.png",
+                ImageLink = "https://items.s1.citilink.ru/1593058_v01_b.jpg",
                 Manufacturer = "Intel",
-                Name = "Triple Core T805",
+                Name = "Core i9 12900K",
                 Perfomance = 100501,
                 SocketTypeId = 1,
-                Price = 100000
+                Price = 54490
             },
             new Processor()
             {
                 Id = 9,
                 Consumed_power = 300,
-                ImageLink = "nope.png",
+                ImageLink = "https://items.s1.citilink.ru/1527909_v01_b.jpg",
                 Manufacturer = "AMD",
-                Name = "Athlant",
+                Name = "Ryzen Threadripper 3990X",
                 Perfomance = 100000,
                 SocketTypeId = 2,
-                Price = 5000
+                Price = 412520
             },
             new Ram()
             {
