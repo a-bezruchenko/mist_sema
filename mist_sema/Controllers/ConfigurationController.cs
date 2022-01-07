@@ -32,25 +32,23 @@ namespace mist_sema.Controllers
             return result.IsValid ? "" : result.Message;
         }
 
-        protected bool GetComputerConfiguration(IEnumerable<long> ids, out ComputerConfiguration computerConfiguration)
+        private bool GetComputerConfiguration(IEnumerable<long> ids, out ComputerConfiguration computerConfiguration)
         {
-            bool isOk = true;
-            List<ComputerComponent> res = new List<ComputerComponent>();
-            foreach (long id in ids)
+            var isOk = true;
+            var res = new List<ComputerComponent>();
+            foreach (var id in ids)
             {
-                ComputerComponent? computerComponent = componentRepository.Get<ComputerComponent>(id);
+                var computerComponent = componentRepository.Get<ComputerComponent>(id);
                 if (computerComponent == null)
                 {
                     isOk = false;
                     break;
                 }
-                else
-                {
-                    res.Add(computerComponent);
-                }
+
+                res.Add(computerComponent);
             }
 
-            ComputerComponent[] components = isOk ? res.ToArray() : new ComputerComponent[0];
+            var components = isOk ? res.ToArray() : Array.Empty<ComputerComponent>();
             computerConfiguration = new ComputerConfiguration(components);
             return isOk;
         }
