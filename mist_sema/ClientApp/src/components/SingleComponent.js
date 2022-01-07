@@ -1,28 +1,27 @@
 ﻿import {useEffect, useState} from "react";
 import {Autocomplete, Box, Card, CardContent, CardMedia, TextField, Typography} from "@mui/material";
 
-export default function Processor() {
-    let [processor, setProcessor] = useState(null);
-    let [allProcessors, setAllProcessors] = useState([]);
+export default function SingleComponent({title, endpoint}) {
+    let [component, setComponent] = useState(null);
+    let [allComponents, setAllComponents] = useState([]);
     useEffect(() => {
-        fetch('processors')
+        fetch(endpoint)
             .then((response) => response.json())
-            .then((processors) => processors.map((processor) => ({label: processor.manufacturer + " " + processor.name, ...processor})))
+            .then((components) => components.map((component_) => ({label: component_.manufacturer + " " + component_.name, ...component_})))
             .then((json) => {
                 console.log(json);
                 return json
             })
-            .then((processors) => setAllProcessors(processors))
+            .then((components) => setAllComponents(components))
     }, [])
     return (<div style={{marginTop: "20px", display: 'flex'}}>
         <Autocomplete
             disablePortal
-            id={"processor-selector"}
-            options={allProcessors}
+            options={allComponents}
             sx={{width: 300, marginRight: 10, alignSelf: 'center'}}
-            renderInput={(params) => <TextField {...params} label="Процессор"/>}
+            renderInput={(params) => <TextField {...params} label={title}/>}
             onChange={(_, value) => {
-                setProcessor(value);
+                setComponent(value);
                 console.log(value);
             }}
         />
@@ -31,16 +30,16 @@ export default function Processor() {
             <CardMedia
                 component="img"
                 sx={{maxWidth: 151, minWidth: 151, backgroundSize: "contain"}}
-                image={processor?.imageLink}
-                alt={processor?.label}
+                image={component?.imageLink}
+                alt={component?.label}
             />
             <Box sx={{display: 'flex', flexDirection: 'column'}}>
                 <CardContent sx={{flex: '1 0 auto'}}>
                     <Typography component="div" variant="h5">
-                        {processor?.name}
+                        {component?.name}
                     </Typography>
                     <Typography variant="subtitle1" component="div">
-                        {processor?.manufacturer}
+                        {component?.manufacturer}
                     </Typography>
                 </CardContent>
             </Box>
