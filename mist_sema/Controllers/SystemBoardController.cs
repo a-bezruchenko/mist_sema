@@ -13,5 +13,3 @@ namespace mist_sema.Controllers
         }
     }
 }
-
-
