@@ -1,8 +1,11 @@
+using mist_sema.Model;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IComponentRepository, ComponentRepository>();
 
 var app = builder.Build();
 

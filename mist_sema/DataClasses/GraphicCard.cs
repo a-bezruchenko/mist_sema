@@ -1,8 +1,10 @@
-﻿namespace mist_sema.DataClasses
+﻿using System.Runtime.Serialization;
+
+namespace mist_sema.DataClasses
 {
     public class GraphicCard : ComputerComponent
     {
-        double MemoryVolume { get; set; }
-        double Perfomance { get; set; }
+        public double MemoryVolume { get; set; }
+        public double Perfomance { get; set; }
     }
 }

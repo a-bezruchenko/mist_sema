@@ -1,4 +1,6 @@
-﻿namespace mist_sema.DataClasses
+﻿using System.Runtime.Serialization;
+
+namespace mist_sema.DataClasses
 {
     public class Processor : ComputerComponent
     {
