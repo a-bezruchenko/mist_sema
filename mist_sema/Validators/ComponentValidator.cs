@@ -78,16 +78,16 @@ namespace mist_sema.Controllers
         private ValidationResult CheckMemoryCompatability(ComputerConfiguration computerConfiguration)
         {
             SystemBoard? systemBoard = computerConfiguration.components.FirstOrDefault(c => c is SystemBoard) as SystemBoard;
-            int? ramGenerationId = (computerConfiguration.components.FirstOrDefault((ComputerComponent c) => c is Ram) as Ram)?.GenerationId;
+            string? ramGenerationId = (computerConfiguration.components.FirstOrDefault((ComputerComponent c) => c is Ram) as Ram)?.GenerationName;
             bool memoryGenerationsEqual = computerConfiguration.components
                 .Where((ComputerComponent c) => c is Ram)
-                .All((ComputerComponent c) => ((Ram)c).GenerationId == ramGenerationId);
+                .All((ComputerComponent c) => ((Ram)c).GenerationName == ramGenerationId);
 
             if (!memoryGenerationsEqual)
                 return ValidationResult.Failure("Поколения планок памяти должны быть одинаковы");
             else if (ramGenerationId == null || systemBoard == null)
                 return ValidationResult.Failure(""); // уже протестировано другими тестами
-            else if (systemBoard?.MemoryGenerationId != ramGenerationId)
+            else if (systemBoard?.MemoryGenerationName != ramGenerationId)
                 return ValidationResult.Failure("Поколения планок памяти и материнской платы должны быть одинаковы");
             else
                 return ValidationResult.Success();
@@ -99,7 +99,7 @@ namespace mist_sema.Controllers
             SystemBoard? systemBoard = computerConfiguration.components.FirstOrDefault(c => c is SystemBoard) as SystemBoard;
             if (processor == null || systemBoard == null)
                 return ValidationResult.Failure(""); // уже протестировано другими тестами
-            else if (processor.SocketTypeId != systemBoard.SocketTypeId)
+            else if (processor.ProcessorSocketType != systemBoard.ProcessorSocketType)
                 return ValidationResult.Failure("Разные сокеты у процессора и материнской платы");
             else
                 return ValidationResult.Success();
