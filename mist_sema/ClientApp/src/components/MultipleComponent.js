@@ -17,29 +17,31 @@ export default function MultipleComponent({title, endpoint}) {
             })
             .then((components) => setAllComponents(components))
     }, [])
-    return (<div style={{marginTop: "20px", display: 'flex'}}>
-        <Autocomplete
-            multiple
-            disablePortal
-            options={allComponents}
-            sx={{width: 300, marginRight: 10}}
-            renderInput={(params) => <TextField {...params} label={title}/>}
-            onChange={(_, value) => {
-                setComponents(value);
-                console.log(value);
-            }}
-        />
-        <Stack>
-            {
-                components.map(component => <Card sx={{maxHeight: 151, minHeight: 151, display: 'flex'}}>
-                    <CardMedia
-                        component="img"
-                        sx={{maxWidth: 151, minWidth: 151, backgroundSize: "contain"}}
-                        image={component?.imageLink}
-                        alt={component?.label}
-                    />
-                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                        <CardContent sx={{flex: '1 0 auto'}}>
+    return (<div style={{display: 'flex'}}>
+        <Stack direction={"row"} spacing={2}>
+            <Autocomplete
+                multiple
+                disablePortal
+                options={allComponents}
+                style={{minWidth: 300}}
+                sx={{minWidth: 300}}
+                renderInput={(params) => <TextField {...params} label={title}/>}
+                onChange={(_, value) => {
+                    setComponents(value);
+                    console.log(value);
+                }}
+            />
+            <Stack spacing={1}>
+                {
+                    components.map(component => <Card sx={{maxHeight: 151, minHeight: 151, display: 'flex'}}>
+                        <CardMedia
+                            component="img"
+                            sx={{maxWidth: 151, minWidth: 151, backgroundSize: "contain"}}
+                            image={component?.imageLink}
+                            alt={component?.label}
+                        />
+                        <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                            <CardContent sx={{flex: '1 0 auto'}}>
                             <Typography component="div" variant="h5">
                                 {component?.name}
                             </Typography>
@@ -55,10 +57,10 @@ export default function MultipleComponent({title, endpoint}) {
                                 onChange={(_, value) => idToCount[component?.id] = value}
                             />
                         </Box>
-                    </Box>
-                </Card>)
-            }
+                        </Box>
+                    </Card>)
+                }
+            </Stack>
         </Stack>
-
     </div>)
 }
