@@ -1,9 +1,8 @@
 ﻿using mist_sema.DataClasses;
 
-namespace mist_sema.Validators
+namespace mist_sema.Validators;
+
+public interface IValidator
 {
-    public interface IValidator
-    {
-        ValidationResult Validate(ComputerConfiguration computerConfiguration);
-    }
+    ValidationResult Validate(ComputerConfiguration computerConfiguration);
 }

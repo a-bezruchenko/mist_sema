@@ -1,15 +1,12 @@
-﻿using System.Runtime.Serialization;
+﻿namespace mist_sema.DataClasses;
 
-namespace mist_sema.DataClasses
+public class Processor : ComputerComponent
 {
-    public class Processor : ComputerComponent
+    public Processor()
     {
-        public string ProcessorSocketType { get; set; }
-        public double Perfomance { get; set; }
-
-        public Processor()
-        {
-            ProcessorSocketType = "";
-        }
+        ProcessorSocketType = "";
     }
+
+    public string ProcessorSocketType { get; set; }
+    public double Perfomance { get; set; }
 }

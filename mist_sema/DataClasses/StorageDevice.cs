@@ -1,13 +1,12 @@
-﻿namespace mist_sema.DataClasses
-{
-    public class StorageDevice : ComputerComponent
-    {
-        public string StorageType { get; set; }
-        public double Volume { get; set; }
+﻿namespace mist_sema.DataClasses;
 
-        public StorageDevice()
-        {
-            StorageType = "";
-        }
+public class StorageDevice : ComputerComponent
+{
+    public StorageDevice()
+    {
+        StorageType = "";
     }
+
+    public string StorageType { get; set; }
+    public double Volume { get; set; }
 }

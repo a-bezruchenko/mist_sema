@@ -7,7 +7,7 @@ import TotalPrice from "./TotalPrice";
 
 export function Home() {
     const [configIds, setConfigIds] = useState([])
-    
+
     return (<>
             <Grid container>
                 <Grid item xs={8}>
