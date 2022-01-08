@@ -3,10 +3,9 @@ using mist_sema.DataClasses;
 using mist_sema.Model;
 
 namespace mist_sema.Controllers;
-#if DEBUG
-    [ApiController]
-    [Route("add_test_data")]
-#endif
+
+[ApiController]
+[Route("add_test_data")]
 public class TestDataController : ControllerBase
 {
     private static readonly List<GraphicCard> graphicCards = new()
