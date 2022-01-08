@@ -25,17 +25,17 @@ namespace mist_sema.Controllers
             this.controllerUtils = controllerUtils;
         }
 
-        [HttpPost]
-        public string Validate(IEnumerable<long> componentIds)
+        [HttpGet]
+        public ValidationResult Validate(IEnumerable<long> componentIds)
         {
             ComputerConfiguration? computerConfiguration = controllerUtils.GetComputerConfiguration(componentIds, componentRepository);
             if (computerConfiguration == null)
             {
-                return "Не удалось найти все указанные компоненты";
+                return ValidationResult.Failure("Не удалось найти все указанные компоненты");
             }
 
             var result = ValidationResult.Merge(componentValidators.Select((v) => v.Validate(computerConfiguration)));
-            return result.IsValid ? "" : result.Message;
+            return result;
         }
 
 

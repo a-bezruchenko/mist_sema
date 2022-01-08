@@ -4,8 +4,8 @@ namespace mist_sema.Validators
 {
     public class ValidationResult
     {
-        public readonly bool IsValid;
-        public readonly string Message;
+        public bool IsValid { get; set; }
+        public string Message { get; set; }
 
         private ValidationResult(bool isValid, string message)
         {

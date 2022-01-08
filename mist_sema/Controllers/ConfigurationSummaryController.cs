@@ -4,6 +4,12 @@ using mist_sema.Model;
 
 namespace mist_sema.Controllers
 {
+    public class ConfigurationSummary
+    {
+        public string? TotalPrice { get; set; }
+        public string? Error { get; set; }
+    }
+
     [ApiController]
     [Route("configuration_summary")]
     public class ConfigurationSummaryController : ControllerBase
@@ -21,17 +27,22 @@ namespace mist_sema.Controllers
             this.controllerUtils = controllerUtils;
         }
 
-        [HttpPost]
-        public string GetAmount(IEnumerable<long> componentIds)
+        [HttpGet]
+        public ConfigurationSummary GetAmount(IEnumerable<long> componentIds)
         {
+            ConfigurationSummary res = new ConfigurationSummary();
+
             ComputerConfiguration? computerConfiguration = controllerUtils.GetComputerConfiguration(componentIds, componentRepository);
             if (computerConfiguration == null)
             {
-                return "Не удалось найти все указанные компоненты";
+                res.Error = "Не удалось найти все указанные компоненты";
+                return res;
             }
 
             decimal sum = computerConfiguration.components.Select(c => c.Price).Sum();
-            return sum.ToString();
+            res.TotalPrice = sum.ToString();
+
+            return res;
         }
     }
 }
