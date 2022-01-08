@@ -49,6 +49,9 @@ export default function SingleComponent({title, endpoint, configIds, setConfigId
                         <Typography variant="subtitle1" component="div">
                             {component?.manufacturer}
                         </Typography>
+                        <Typography variant="h6" component="div">
+                            {"Цена: " + component?.price + "₽"}
+                        </Typography>
                     </CardContent>
                 </Box>
             </Card>

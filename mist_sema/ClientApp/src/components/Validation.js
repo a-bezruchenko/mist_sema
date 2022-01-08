@@ -16,7 +16,7 @@ export default function Validation({configIds}) {
             setErrors(res.message.split('\n').filter(error => error !== ""))
         })
     }, [configIds])
-    console.log(errors)
+    
     if (isValid) {
         return <Alert severity="success">Ваша сборка не имеет проблем!</Alert>
     }
