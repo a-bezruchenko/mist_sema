@@ -4,9 +4,9 @@ using mist_sema.Model;
 
 namespace mist_sema.Controllers
 {
-    abstract public class ComponentsControllerBase<T> : ControllerBase where T : ComputerComponent, new()
+    public abstract class ComponentsControllerBase<T> : ControllerBase where T : ComputerComponent, new()
     {
-        readonly protected IComponentRepository componentRepository;
+        private readonly IComponentRepository componentRepository;
 
         protected ComponentsControllerBase(IComponentRepository componentRepository)
         {
