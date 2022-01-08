@@ -63,8 +63,11 @@ export default function MultipleComponent({title, endpoint, configIds, setConfig
                                 <Typography variant="subtitle1" component="div">
                                     {component?.manufacturer}
                                 </Typography>
+                                <Typography variant="h6" component="div">
+                                    {"Цена: " + component?.price + "₽"}
+                                </Typography>
                             </CardContent>
-                            <Box sx={{display: 'flex', alignItems: 'center', pl: 1, pb: 1, justifyContent: "flex-end"}}>
+                            <Box sx={{display: 'flex', alignItems: 'center', pl: 1, pb: 1, justifyContent: "center"}}>
                                 <NumericInput
                                     mobile
                                     min={1}

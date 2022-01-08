@@ -6,7 +6,7 @@ import Validation from "./Validation";
 
 export function Home() {
     const [configIds, setConfigIds] = useState([])
-    console.log(configIds)
+    
     return (<>
             <Grid container>
                 <Grid item xs={8}>
