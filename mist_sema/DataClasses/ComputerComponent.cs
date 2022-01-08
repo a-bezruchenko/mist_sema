@@ -1,4 +1,7 @@
-﻿namespace mist_sema.DataClasses;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace mist_sema.DataClasses;
 
 public abstract class ComputerComponent
 {
@@ -8,6 +11,8 @@ public abstract class ComputerComponent
         ImageLink = "";
         Manufacturer = "";
     }
+
+    [Key]
 
     public long Id { get; set; }
 

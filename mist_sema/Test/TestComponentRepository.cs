@@ -214,7 +214,7 @@ public class TestComponentRepository : IComponentRepository
         data.Add(newComponent);
     }
 
-    public void Delete(long id)
+    public void Delete<T>(long id) where T : ComputerComponent
     {
         var component = data.FirstOrDefault(x => x.Id == id);
         if (component != null)

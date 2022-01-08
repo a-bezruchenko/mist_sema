@@ -27,5 +27,12 @@ public class ComponentContext : DbContext
         modelBuilder.Entity<Ram>().ToTable("rams");
         modelBuilder.Entity<StorageDevice>().ToTable("storageDevices");
         modelBuilder.Entity<SystemBoard>().ToTable("systemBoards");
+        modelBuilder.Entity<ComputerComponent>()
+            .Property(e => e.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<GraphicCard>()
+            .Property(e => e.Id)
+            .ValueGeneratedOnAdd();
+
     }
 }

@@ -10,5 +10,5 @@ public interface IComponentRepository
 
     void Add<T>(T newComponent) where T : ComputerComponent;
 
-    void Delete(long id);
+    void Delete<T>(long id) where T : ComputerComponent;
 }

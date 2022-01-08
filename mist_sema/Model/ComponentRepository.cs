@@ -17,9 +17,15 @@ public class ComponentRepository : IComponentRepository
         _context.SaveChanges();
     }
 
-    public void Delete(long id)
+    public void Delete<T>(long id) where T : ComputerComponent
     {
-        throw new NotImplementedException();
+        T? toDelete = _context.Set<T>().FirstOrDefault(x => x.Id == id);
+        if (toDelete != null)
+        {
+            _context.Set<T>().Remove(toDelete);
+            _context.SaveChanges();
+        }
+
     }
 
     public T? Get<T>(long id) where T : ComputerComponent
