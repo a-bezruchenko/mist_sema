@@ -22,7 +22,7 @@ export class NavMenu extends Component {
 
     render() {
         return (
-            <header>
+            <header style={{marginBottom: "15px"}}>
                 <AppBar position="static">
                     <Toolbar>
                         <Typography variant="h6" component="div" sx={{flexGrow: 1}}>

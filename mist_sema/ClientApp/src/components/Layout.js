@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Container} from 'reactstrap';
 import {NavMenu} from './NavMenu';
+import {Stack} from "@mui/material";
 
 export class Layout extends Component {
     static displayName = Layout.name;
@@ -8,10 +9,12 @@ export class Layout extends Component {
     render() {
         return (
             <div>
-                <NavMenu/>
-                <Container fixed>
-                    {this.props.children}
-                </Container>
+                <Stack>
+                    <NavMenu/>
+                    <Container>
+                        {this.props.children}
+                    </Container>
+                </Stack>
             </div>
         );
     }

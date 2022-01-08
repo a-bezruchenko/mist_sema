@@ -27,8 +27,10 @@ export function Home() {
                     </Stack>
                 </Grid>
                 <Grid item xs={4}>
-                    <TotalPrice configIds={configIds}/>
-                    <Validation configIds={configIds}/>
+                    <Stack spacing={3}>
+                        <TotalPrice configIds={configIds}/>
+                        <Validation configIds={configIds}/>
+                    </Stack>
                 </Grid>
             </Grid>
         </>
