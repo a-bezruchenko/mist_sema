@@ -2,273 +2,271 @@
 using mist_sema.DataClasses;
 using mist_sema.Model;
 
-namespace mist_sema.Controllers
-{
+namespace mist_sema.Controllers;
 #if DEBUG
     [ApiController]
     [Route("add_test_data")]
 #endif
-    public class TestDataController : ControllerBase
+public class TestDataController : ControllerBase
+{
+    private static readonly List<GraphicCard> graphicCards = new()
     {
-        IComponentRepository componentRepository;
-
-        public TestDataController(IComponentRepository componentRepository)
+        new GraphicCard
         {
-            this.componentRepository = componentRepository;
+            Id = 1,
+            Consumed_power = 9010,
+            ImageLink = "nope.png",
+            Manufacturer = "NVidia",
+            Name = "RTX 4099",
+            Perfomance = 100501,
+            MemoryVolume = 128,
+            Price = 5000000000
+        },
+
+        new GraphicCard
+        {
+            Id = 2,
+            Consumed_power = 9000,
+            ImageLink = "nope.png",
+            Manufacturer = "NVidia",
+            Name = "RTX 3090",
+            Perfomance = 100000,
+            MemoryVolume = 32,
+            Price = 50000000
+        },
+
+        new GraphicCard
+        {
+            Id = 3,
+            Consumed_power = 1500,
+            ImageLink = "nope.png",
+            Manufacturer = "AMD",
+            Name = "Radeon XR8600 XXL",
+            Perfomance = 90000,
+            MemoryVolume = 16,
+            Price = 50000
+        },
+        new GraphicCard
+        {
+            Id = 4,
+            Consumed_power = 50,
+            ImageLink = "nope.png",
+            Manufacturer = "NVidia",
+            Name = "GTX 110M",
+            Perfomance = 5,
+            MemoryVolume = 0.25,
+            Price = 1000
         }
+    };
 
-        [HttpPost]
-        public void AddDataToDb()
+    private static readonly List<PowerSupply> powerSupplies = new()
+    {
+        new PowerSupply
         {
-            foreach (ComputerComponent c in graphicCards)
-                componentRepository.Add(c);
-            foreach (ComputerComponent c in powerSupplies)
-                componentRepository.Add(c);
-            foreach (ComputerComponent c in processors)
-                componentRepository.Add(c);
-            foreach (ComputerComponent c in rams)
-                componentRepository.Add(c);
-            foreach (ComputerComponent c in storageDevices)
-                componentRepository.Add(c);
-            foreach (ComputerComponent c in systemBoards)
-                componentRepository.Add(c);
+            Id = 5,
+            Consumed_power = 500,
+            ImageLink = "nope.png",
+            Manufacturer = "no name",
+            Name = "basic power supply by noname",
+            Efficiency = 0.9,
+            Price = 2000
+        },
+        new PowerSupply
+        {
+            Id = 6,
+            Consumed_power = 1000,
+            ImageLink = "nope.png",
+            Manufacturer = "no name",
+            Name = "advanced power supply by noname",
+            Efficiency = 0.99,
+            Price = 4000
         }
+    };
 
-        [HttpDelete]
-        public void Clear()
+    private static readonly List<Processor> processors = new()
+    {
+        new Processor
         {
-            foreach (ComputerComponent c in componentRepository.GetAll<GraphicCard>())
-                componentRepository.Delete(c.Id);
-
-            foreach (ComputerComponent c in componentRepository.GetAll<PowerSupply>())
-                componentRepository.Delete(c.Id);
-
-            foreach (ComputerComponent c in componentRepository.GetAll<Processor>())
-                componentRepository.Delete(c.Id);
-
-            foreach (ComputerComponent c in componentRepository.GetAll<Ram>())
-                componentRepository.Delete(c.Id);
-
-            foreach (ComputerComponent c in componentRepository.GetAll<StorageDevice>())
-                componentRepository.Delete(c.Id);
-
-            foreach (ComputerComponent c in componentRepository.GetAll<SystemBoard>())
-                componentRepository.Delete(c.Id);
+            Id = 7,
+            Consumed_power = 100,
+            ImageLink = "https://items.s1.citilink.ru/1593041_v01_b.jpg",
+            Manufacturer = "Intel",
+            Name = "Core i7 12700K",
+            Perfomance = 100500,
+            ProcessorSocketType = "LGA 1700",
+            Price = 37690
+        },
+        new Processor
+        {
+            Id = 8,
+            Consumed_power = 150,
+            ImageLink = "https://items.s1.citilink.ru/1593058_v01_b.jpg",
+            Manufacturer = "Intel",
+            Name = "Core i9 12900K",
+            Perfomance = 100501,
+            ProcessorSocketType = "LGA 1700",
+            Price = 54490
+        },
+        new Processor
+        {
+            Id = 9,
+            Consumed_power = 300,
+            ImageLink = "https://items.s1.citilink.ru/1527909_v01_b.jpg",
+            Manufacturer = "AMD",
+            Name = "Ryzen Threadripper 3990X",
+            Perfomance = 100000,
+            ProcessorSocketType = "sTRX4",
+            Price = 412520
         }
+    };
 
-        static List<GraphicCard> graphicCards = new List<GraphicCard>
+    private static readonly List<Ram> rams = new()
+    {
+        new Ram
         {
-            new GraphicCard()
-            {
-                Id = 1,
-                Consumed_power = 9010,
-                ImageLink = "nope.png",
-                Manufacturer = "NVidia",
-                Name = "RTX 4099",
-                Perfomance = 100501,
-                MemoryVolume = 128,
-                Price = 5000000000
-            },
-
-            new GraphicCard()
-            {
-                Id = 2,
-                Consumed_power = 9000,
-                ImageLink = "nope.png",
-                Manufacturer = "NVidia",
-                Name = "RTX 3090",
-                Perfomance = 100000,
-                MemoryVolume = 32,
-                Price = 50000000
-            },
-
-            new GraphicCard()
-            {
-                Id = 3,
-                Consumed_power = 1500,
-                ImageLink = "nope.png",
-                Manufacturer = "AMD",
-                Name = "Radeon XR8600 XXL",
-                Perfomance = 90000,
-                MemoryVolume = 16,
-                Price = 50000
-            },
-            new GraphicCard()
-            {
-                Id = 4,
-                Consumed_power = 50,
-                ImageLink = "nope.png",
-                Manufacturer = "NVidia",
-                Name = "GTX 110M",
-                Perfomance = 5,
-                MemoryVolume = 0.25,
-                Price = 1000
-            }
-        };
-
-        static List<PowerSupply> powerSupplies = new List<PowerSupply>
+            Id = 10,
+            Consumed_power = 5,
+            ImageLink = "nope.png",
+            Manufacturer = "Corsair",
+            Name = "Corsair DDR4 16GB",
+            GenerationName = "DDR4",
+            Volume = 16,
+            Price = 4500
+        },
+        new Ram
         {
-            new PowerSupply()
-            {
-                Id = 5,
-                Consumed_power = 500,
-                ImageLink = "nope.png",
-                Manufacturer = "no name",
-                Name = "basic power supply by noname",
-                Efficiency = 0.9,
-                Price = 2000
-            },
-            new PowerSupply()
-            {
-                Id = 6,
-                Consumed_power = 1000,
-                ImageLink = "nope.png",
-                Manufacturer = "no name",
-                Name = "advanced power supply by noname",
-                Efficiency = 0.99,
-                Price = 4000
-            }
-        };
-
-        static List<Processor> processors = new List<Processor>
+            Id = 11,
+            Consumed_power = 5,
+            ImageLink = "nope.png",
+            Manufacturer = "Corsair",
+            Name = "Corsair DDR4 8GB",
+            GenerationName = "DDR4",
+            Volume = 8,
+            Price = 3000
+        },
+        new Ram
         {
-            new Processor()
-            {
-                Id = 7,
-                Consumed_power = 100,
-                ImageLink = "https://items.s1.citilink.ru/1593041_v01_b.jpg",
-                Manufacturer = "Intel",
-                Name = "Core i7 12700K",
-                Perfomance = 100500,
-                ProcessorSocketType = "LGA 1700",
-                Price = 37690
-            },
-            new Processor()
-            {
-                Id = 8,
-                Consumed_power = 150,
-                ImageLink = "https://items.s1.citilink.ru/1593058_v01_b.jpg",
-                Manufacturer = "Intel",
-                Name = "Core i9 12900K",
-                Perfomance = 100501,
-                ProcessorSocketType = "LGA 1700",
-                Price = 54490
-            },
-            new Processor()
-            {
-                Id = 9,
-                Consumed_power = 300,
-                ImageLink = "https://items.s1.citilink.ru/1527909_v01_b.jpg",
-                Manufacturer = "AMD",
-                Name = "Ryzen Threadripper 3990X",
-                Perfomance = 100000,
-                ProcessorSocketType = "sTRX4",
-                Price = 412520
-            }
-        };
+            Id = 12,
+            Consumed_power = 5,
+            ImageLink = "nope.png",
+            Manufacturer = "noname",
+            Name = "noname DDR3 4GB",
+            GenerationName = "DDR3",
+            Volume = 4,
+            Price = 500
+        }
+    };
 
-        static List<Ram> rams = new List<Ram>
+    private static readonly List<StorageDevice> storageDevices = new()
+    {
+        new StorageDevice
         {
-            new Ram()
-            {
-                Id = 10,
-                Consumed_power = 5,
-                ImageLink = "nope.png",
-                Manufacturer = "Corsair",
-                Name = "Corsair DDR4 16GB",
-                GenerationName = "DDR4",
-                Volume = 16,
-                Price = 4500
-            },
-            new Ram()
-            {
-                Id = 11,
-                Consumed_power = 5,
-                ImageLink = "nope.png",
-                Manufacturer = "Corsair",
-                Name = "Corsair DDR4 8GB",
-                GenerationName = "DDR4",
-                Volume = 8,
-                Price = 3000
-            },
-            new Ram()
-            {
-                Id = 12,
-                Consumed_power = 5,
-                ImageLink = "nope.png",
-                Manufacturer = "noname",
-                Name = "noname DDR3 4GB",
-                GenerationName = "DDR3",
-                Volume = 4,
-                Price = 500
-            }
-        };
+            Id = 13,
+            Consumed_power = 10,
+            ImageLink = "nope.png",
+            Manufacturer = "WD",
+            Name = "WD Green HDD 500GB",
+            StorageType = "HDD",
+            Volume = 500,
+            Price = 3000
+        },
+        new StorageDevice
+        {
+            Id = 14,
+            Consumed_power = 10,
+            ImageLink = "nope.png",
+            Manufacturer = "WD",
+            Name = "WD Green HDD 1TB",
+            StorageType = "HDD",
+            Volume = 1000,
+            Price = 4000
+        },
+        new StorageDevice
+        {
+            Id = 15,
+            Consumed_power = 10,
+            ImageLink = "nope.png",
+            Manufacturer = "WD",
+            Name = "WD Green SSD 250GB",
+            StorageType = "SSD",
+            Volume = 250,
+            Price = 4000
+        }
+    };
 
-        static List<StorageDevice> storageDevices = new List<StorageDevice>
+    private static readonly List<SystemBoard> systemBoards = new()
+    {
+        new SystemBoard
         {
-            new StorageDevice()
-            {
-                Id = 13,
-                Consumed_power = 10,
-                ImageLink = "nope.png",
-                Manufacturer = "WD",
-                Name = "WD Green HDD 500GB",
-                StorageType = "HDD",
-                Volume = 500,
-                Price = 3000
-            },
-            new StorageDevice()
-            {
-                Id = 14,
-                Consumed_power = 10,
-                ImageLink = "nope.png",
-                Manufacturer = "WD",
-                Name = "WD Green HDD 1TB",
-                StorageType = "HDD",
-                Volume = 1000,
-                Price = 4000
-            },
-            new StorageDevice()
-            {
-                Id = 15,
-                Consumed_power = 10,
-                ImageLink = "nope.png",
-                Manufacturer = "WD",
-                Name = "WD Green SSD 250GB",
-                StorageType = "SSD",
-                Volume = 250,
-                Price = 4000
-            }
-        };
+            Id = 16,
+            Consumed_power = 5,
+            ImageLink = "nope.png",
+            Manufacturer = "no name",
+            Name = "basic systemboard by noname",
+            MemorySlotsCount = 2,
+            MemoryGenerationName = "DDR4",
+            SataPortsCount = 2,
+            ProcessorSocketType = "LGA 1700",
+            Price = 2000
+        },
+        new SystemBoard
+        {
+            Id = 17,
+            Consumed_power = 5,
+            ImageLink = "nope.png",
+            Manufacturer = "no name",
+            Name = "basic systemboard by noname",
+            MemorySlotsCount = 2,
+            MemoryGenerationName = "DDR4",
+            SataPortsCount = 2,
+            ProcessorSocketType = "LGA 1700",
+            Price = 2000
+        }
+    };
 
-        static List<SystemBoard> systemBoards = new List<SystemBoard>
-        {
-            new SystemBoard()
-            {
-                Id = 16,
-                Consumed_power = 5,
-                ImageLink = "nope.png",
-                Manufacturer = "no name",
-                Name = "basic systemboard by noname",
-                MemorySlotsCount = 2,
-                MemoryGenerationName = "DDR4",
-                SataPortsCount = 2,
-                ProcessorSocketType = "LGA 1700",
-                Price = 2000
-            },
-            new SystemBoard()
-            {
-                Id = 17,
-                Consumed_power = 5,
-                ImageLink = "nope.png",
-                Manufacturer = "no name",
-                Name = "basic systemboard by noname",
-                MemorySlotsCount = 2,
-                MemoryGenerationName = "DDR4",
-                SataPortsCount = 2,
-                ProcessorSocketType = "LGA 1700",
-                Price = 2000
-            },
-        };
+    private readonly IComponentRepository componentRepository;
+
+    public TestDataController(IComponentRepository componentRepository)
+    {
+        this.componentRepository = componentRepository;
+    }
+
+    [HttpPost]
+    public void AddDataToDb()
+    {
+        foreach (ComputerComponent c in graphicCards)
+            componentRepository.Add(c);
+        foreach (ComputerComponent c in powerSupplies)
+            componentRepository.Add(c);
+        foreach (ComputerComponent c in processors)
+            componentRepository.Add(c);
+        foreach (ComputerComponent c in rams)
+            componentRepository.Add(c);
+        foreach (ComputerComponent c in storageDevices)
+            componentRepository.Add(c);
+        foreach (ComputerComponent c in systemBoards)
+            componentRepository.Add(c);
+    }
+
+    [HttpDelete]
+    public void Clear()
+    {
+        foreach (ComputerComponent c in componentRepository.GetAll<GraphicCard>())
+            componentRepository.Delete(c.Id);
+
+        foreach (ComputerComponent c in componentRepository.GetAll<PowerSupply>())
+            componentRepository.Delete(c.Id);
+
+        foreach (ComputerComponent c in componentRepository.GetAll<Processor>())
+            componentRepository.Delete(c.Id);
+
+        foreach (ComputerComponent c in componentRepository.GetAll<Ram>())
+            componentRepository.Delete(c.Id);
+
+        foreach (ComputerComponent c in componentRepository.GetAll<StorageDevice>())
+            componentRepository.Delete(c.Id);
+
+        foreach (ComputerComponent c in componentRepository.GetAll<SystemBoard>())
+            componentRepository.Delete(c.Id);
     }
 }

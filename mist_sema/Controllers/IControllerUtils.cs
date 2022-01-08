@@ -1,10 +1,9 @@
 ﻿using mist_sema.DataClasses;
 using mist_sema.Model;
 
-namespace mist_sema.Controllers
+namespace mist_sema.Controllers;
+
+public interface IControllerUtils
 {
-    public interface IControllerUtils
-    {
-        ComputerConfiguration? GetComputerConfiguration(IEnumerable<long> ids, IComponentRepository componentRepository);
-    }
+    ComputerConfiguration? GetComputerConfiguration(IEnumerable<long> ids, IComponentRepository componentRepository);
 }

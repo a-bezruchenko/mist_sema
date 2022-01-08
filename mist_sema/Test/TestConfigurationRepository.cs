@@ -1,46 +1,43 @@
 ﻿using mist_sema.DataClasses;
 
-namespace mist_sema.Model
+namespace mist_sema.Model;
+
+public class TestConfigurationRepository : IConfigurationRepository
 {
-    public class TestConfigurationRepository : IConfigurationRepository
+    private static readonly List<ComputerConfiguration> data = new();
+
+    protected readonly IComponentRepository componentRepository;
+
+    public TestConfigurationRepository(IComponentRepository componentRepository)
     {
-        static List<ComputerConfiguration> data = new List<ComputerConfiguration>();
+        this.componentRepository = componentRepository;
+    }
 
-        readonly protected IComponentRepository componentRepository;
+    public void Add(ComputerConfiguration computerConfiguration)
+    {
+        data.Add(computerConfiguration);
+    }
 
-        public TestConfigurationRepository(IComponentRepository componentRepository)
-        {
-            this.componentRepository = componentRepository;
-        }
+    public void Delete(long id)
+    {
+        var configuration = data.FirstOrDefault(x => x.Id == id);
+        if (configuration != null)
+            data.Remove(configuration);
+    }
 
-        public void Add(ComputerConfiguration computerConfiguration)
-        {
-            data.Add(computerConfiguration);
-        }
+    public ComputerConfiguration? Get(long id)
+    {
+        return data.FirstOrDefault(x => x.Id == id);
+    }
 
-        public void Delete(long id)
-        {
-            var configuration = data.FirstOrDefault((x) => x.Id == id);
-            if (configuration != null)
-                data.Remove(configuration);
-        }
+    public IEnumerable<ComputerConfiguration> GetAll()
+    {
+        return data;
+    }
 
-        public ComputerConfiguration? Get(long id)
-        {
-            return data.FirstOrDefault((x) => x.Id == id);
-        }
-
-        public IEnumerable<ComputerConfiguration> GetAll()
-        {
-            return data;
-        }
-
-        public void Update(ComputerConfiguration configuration)
-        {
-            Delete(configuration.Id);
-            Add(configuration);
-        }
-
-
+    public void Update(ComputerConfiguration configuration)
+    {
+        Delete(configuration.Id);
+        Add(configuration);
     }
 }
