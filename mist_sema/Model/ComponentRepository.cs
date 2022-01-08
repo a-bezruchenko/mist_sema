@@ -14,6 +14,7 @@ namespace mist_sema.Model
         public void Add<T>(T newComponent) where T : ComputerComponent
         {
             _context.Set<T>().Add(newComponent);
+            _context.SaveChanges();
         }
 
         public void Delete(long id)
