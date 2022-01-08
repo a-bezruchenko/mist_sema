@@ -9,12 +9,12 @@ namespace mist_sema.Controllers
     [Route("validate_configuration")]
     public class ConfigurationValidatorController : ControllerBase
     {
-        readonly protected IConfigurationRepository configurationRepository;
         readonly protected IComponentRepository componentRepository;
         readonly protected IEnumerable<IValidator> componentValidators;
+        readonly protected IConfigurationRepository configurationRepository;
         readonly protected IControllerUtils controllerUtils;
 
-        public ConfigurationValidatorController(IConfigurationRepository configurationRepository, 
+        public ConfigurationValidatorController(IConfigurationRepository configurationRepository,
             IComponentRepository componentRepository,
             IEnumerable<IValidator> validators,
             IControllerUtils controllerUtils)
@@ -25,10 +25,11 @@ namespace mist_sema.Controllers
             this.controllerUtils = controllerUtils;
         }
 
-        [HttpGet]
-        public ValidationResult Validate(IEnumerable<long> componentIds)
+        [HttpPost]
+        public ValidationResult Validate([FromBody] IEnumerable<long> componentIds)
         {
-            ComputerConfiguration? computerConfiguration = controllerUtils.GetComputerConfiguration(componentIds, componentRepository);
+            ComputerConfiguration? computerConfiguration =
+                controllerUtils.GetComputerConfiguration(componentIds, componentRepository);
             if (computerConfiguration == null)
             {
                 return ValidationResult.Failure("Не удалось найти все указанные компоненты");
@@ -37,7 +38,5 @@ namespace mist_sema.Controllers
             var result = ValidationResult.Merge(componentValidators.Select((v) => v.Validate(computerConfiguration)));
             return result;
         }
-
-
     }
 }

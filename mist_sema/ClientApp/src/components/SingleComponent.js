@@ -1,7 +1,7 @@
 ﻿import {useEffect, useState} from "react";
 import {Autocomplete, Box, Card, CardContent, CardMedia, Stack, TextField, Typography} from "@mui/material";
 
-export default function SingleComponent({title, endpoint}) {
+export default function SingleComponent({title, endpoint, configIds, setConfigIds}) {
     let [component, setComponent] = useState(null);
     let [allComponents, setAllComponents] = useState([]);
     useEffect(() => {
@@ -14,14 +14,21 @@ export default function SingleComponent({title, endpoint}) {
             })
             .then((components) => setAllComponents(components))
     }, [])
+    const updateConfigIds = function (old_value, new_value) {
+        setConfigIds([...configIds.filter(id => id !== old_value?.id), new_value?.id]
+            .filter(id => id !== null)
+            .filter(id => id !== undefined))
+    }
     return (<div style={{display: 'flex'}}>
         <Stack direction={"row"} spacing={2}>
             <Autocomplete
                 disablePortal
+
                 options={allComponents}
                 sx={{width: 300, alignSelf: 'center'}}
                 renderInput={(params) => <TextField {...params} label={title}/>}
                 onChange={(_, value) => {
+                    updateConfigIds(component, value)
                     setComponent(value);
                     console.log(value);
                 }}
