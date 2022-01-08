@@ -3,6 +3,7 @@ import SingleComponent from "./SingleComponent";
 import MultipleComponent from "./MultipleComponent";
 import {Grid, Stack} from "@mui/material";
 import Validation from "./Validation";
+import TotalPrice from "./TotalPrice";
 
 export function Home() {
     const [configIds, setConfigIds] = useState([])
@@ -25,7 +26,8 @@ export function Home() {
                                            configIds={configIds} setConfigIds={setConfigIds}/>
                     </Stack>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={4}>
+                    <TotalPrice configIds={configIds}/>
                     <Validation configIds={configIds}/>
                 </Grid>
             </Grid>

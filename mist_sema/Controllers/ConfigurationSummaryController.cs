@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using mist_sema.DataClasses;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Mvc;
 using mist_sema.Model;
 
 namespace mist_sema.Controllers
@@ -14,33 +14,31 @@ namespace mist_sema.Controllers
     [Route("configuration_summary")]
     public class ConfigurationSummaryController : ControllerBase
     {
-        readonly protected IConfigurationRepository configurationRepository;
-        readonly protected IComponentRepository componentRepository;
-        readonly protected IControllerUtils controllerUtils;
+        private readonly IComponentRepository componentRepository;
+        private readonly IControllerUtils controllerUtils;
 
         public ConfigurationSummaryController(IConfigurationRepository configurationRepository,
             IComponentRepository componentRepository,
             IControllerUtils controllerUtils)
         {
-            this.configurationRepository = configurationRepository;
             this.componentRepository = componentRepository;
             this.controllerUtils = controllerUtils;
         }
 
-        [HttpGet]
-        public ConfigurationSummary GetAmount(IEnumerable<long> componentIds)
+        [HttpPost]
+        public ConfigurationSummary GetAmount([FromBody] IEnumerable<long> componentIds)
         {
-            ConfigurationSummary res = new ConfigurationSummary();
+            var res = new ConfigurationSummary();
 
-            ComputerConfiguration? computerConfiguration = controllerUtils.GetComputerConfiguration(componentIds, componentRepository);
+            var computerConfiguration = controllerUtils.GetComputerConfiguration(componentIds, componentRepository);
             if (computerConfiguration == null)
             {
                 res.Error = "Не удалось найти все указанные компоненты";
                 return res;
             }
 
-            decimal sum = computerConfiguration.components.Select(c => c.Price).Sum();
-            res.TotalPrice = sum.ToString();
+            var sum = computerConfiguration.components.Select(c => c.Price).Sum();
+            res.TotalPrice = sum.ToString(CultureInfo.CurrentCulture);
 
             return res;
         }
