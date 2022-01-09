@@ -12,8 +12,7 @@ public class ConfigurationValidatorController : ControllerBase
     protected readonly IEnumerable<IValidator> componentValidators;
     protected readonly IControllerUtils controllerUtils;
 
-    public ConfigurationValidatorController(IConfigurationRepository configurationRepository,
-        IComponentRepository componentRepository,
+    public ConfigurationValidatorController(IComponentRepository componentRepository,
         IEnumerable<IValidator> validators,
         IControllerUtils controllerUtils)
     {

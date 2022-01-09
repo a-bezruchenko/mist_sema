@@ -17,8 +17,7 @@ public class ConfigurationSummaryController : ControllerBase
     private readonly IComponentRepository componentRepository;
     private readonly IControllerUtils controllerUtils;
 
-    public ConfigurationSummaryController(IConfigurationRepository configurationRepository,
-        IComponentRepository componentRepository,
+    public ConfigurationSummaryController(IComponentRepository componentRepository,
         IControllerUtils controllerUtils)
     {
         this.componentRepository = componentRepository;

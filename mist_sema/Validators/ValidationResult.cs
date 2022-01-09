@@ -30,7 +30,7 @@ public class ValidationResult
         {
             messageBuilder.Append(validationMessage);
             if (validationMessage != "")
-                messageBuilder.Append("\n");
+                messageBuilder.Append('\n');
         }
 
 
