@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services
     .AddScoped<IComponentRepository, ComponentRepository>()
-    .AddScoped<IConfigurationRepository, TestConfigurationRepository>()
     .AddScoped<IValidator, ComponentsCountValidator>()
     .AddScoped<IValidator, TotalPowerValidator>()
     .AddScoped<IValidator, MemoryCompatabilityValidator>()
