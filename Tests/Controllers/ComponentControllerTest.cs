@@ -4,7 +4,7 @@ using mist_sema.Model;
 using System.Linq;
 using Xunit;
 
-namespace Tests
+namespace Tests.Controllers
 {
     public class ComponentControllerTest
     {
