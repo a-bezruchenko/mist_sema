@@ -59,27 +59,5 @@ namespace Tests.Validators
             // Assert
             Assert.False(res.IsValid);
         }
-
-        [Fact]
-        public void NoPowerSupply()
-        {
-            // Arrange
-            ComputerConfiguration computerConfiguration = new ComputerConfiguration(new ComputerComponent[]
-            {
-                new Processor() { Consumed_power = 100 },
-                new SystemBoard() { Consumed_power = 100 },
-                new GraphicCard() { Consumed_power = 100 },
-                new StorageDevice() { Consumed_power = 100 },
-                new Ram() { Consumed_power = 100 },
-            });
-
-            IValidator validator = new TotalPowerValidator();
-
-            // Act
-            var res = validator.Validate(computerConfiguration);
-
-            // Assert
-            Assert.False(res.IsValid);
-        }
     }
 }

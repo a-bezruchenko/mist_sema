@@ -82,27 +82,5 @@ namespace Tests.Validators
             // Assert
             Assert.False(res.IsValid);
         }
-
-        [Fact]
-        public void NoSystemBoard()
-        {
-            // Arrange
-            ComputerConfiguration computerConfiguration = new ComputerConfiguration(new ComputerComponent[]
-            {
-                new Processor(),
-                new GraphicCard(),
-                new StorageDevice(),
-                new PowerSupply(),
-                new Ram() { GenerationName = "321" },
-            });
-
-            IValidator validator = new MemoryCompatabilityValidator();
-
-            // Act
-            var res = validator.Validate(computerConfiguration);
-
-            // Assert
-            Assert.False(res.IsValid);
-        }
     }
 }
