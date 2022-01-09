@@ -10,7 +10,6 @@ public class ConfigurationValidatorController : ControllerBase
 {
     protected readonly IComponentRepository componentRepository;
     protected readonly IEnumerable<IValidator> componentValidators;
-    protected readonly IConfigurationRepository configurationRepository;
     protected readonly IControllerUtils controllerUtils;
 
     public ConfigurationValidatorController(IConfigurationRepository configurationRepository,
@@ -18,7 +17,6 @@ public class ConfigurationValidatorController : ControllerBase
         IEnumerable<IValidator> validators,
         IControllerUtils controllerUtils)
     {
-        this.configurationRepository = configurationRepository;
         this.componentRepository = componentRepository;
         componentValidators = validators;
         this.controllerUtils = controllerUtils;

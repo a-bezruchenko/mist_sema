@@ -30,9 +30,5 @@ public class ComponentContext : DbContext
         modelBuilder.Entity<ComputerComponent>()
             .Property(e => e.Id)
             .ValueGeneratedOnAdd();
-        modelBuilder.Entity<GraphicCard>()
-            .Property(e => e.Id)
-            .ValueGeneratedOnAdd();
-
     }
 }

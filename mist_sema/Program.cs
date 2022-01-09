@@ -6,8 +6,6 @@ using mist_sema.Validators;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connection = "Filename=db.sqlite";
-
 builder.Services.AddControllersWithViews();
 builder.Services
     .AddScoped<IComponentRepository, ComponentRepository>()
